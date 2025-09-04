@@ -1,0 +1,10 @@
+package org.com.programming.animal.jpa;
+
+
+import org.com.programming.animal.entity.AnimalEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AnimalJpa extends JpaRepository<AnimalEntity, Long> {
+}
