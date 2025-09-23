@@ -1,8 +1,6 @@
 package org.com.programming.animal.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 @Entity
 @Table(name = "tb_animal")
@@ -13,21 +11,29 @@ public class AnimalEntity {
     private Long idAnimal;
 
     private String nameAnimal;
+    private String typeAnimal; // Cachorro ou gato.
     private Integer yearAnimal;
     private String locatedAnimal;
     private String contactAnimal;
+    @Column(length = 1024)
+    private String imgUrl;
+    @Column(length = 1000)
+    private String detailsAnimal;
     @ManyToOne
     @JoinColumn(name = "idUser")
     private UserEntity userId; // Coluna para suportar a chave estrangeira do usuário.
 
     public AnimalEntity(){}
 
-    public AnimalEntity(Long idAnimal, String nameAnimal, Integer yearAnimal, String locatedAnimal, String contactAnimal, UserEntity userId) {
+    public AnimalEntity(Long idAnimal,String typeAnimal, String nameAnimal, Integer yearAnimal, String locatedAnimal, String contactAnimal, String imgUrl, String detailsAnimal, UserEntity userId) {
         this.idAnimal = idAnimal;
+        this.typeAnimal = typeAnimal;
         this.nameAnimal = nameAnimal;
         this.yearAnimal = yearAnimal;
         this.locatedAnimal = locatedAnimal;
         this.contactAnimal = contactAnimal;
+        this.imgUrl = imgUrl;
+        this.detailsAnimal = detailsAnimal;
         this.userId = userId;
     }
 
@@ -77,5 +83,29 @@ public class AnimalEntity {
 
     public void setUserId(UserEntity userId) {
         this.userId = userId;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getDetailsAnimal() {
+        return detailsAnimal;
+    }
+
+    public void setDetailsAnimal(String detailsAnimal) {
+        this.detailsAnimal = detailsAnimal;
+    }
+
+    public String getTypeAnimal() {
+        return typeAnimal;
+    }
+
+    public void setTypeAnimal(String typeAnimal) {
+        this.typeAnimal = typeAnimal;
     }
 }
