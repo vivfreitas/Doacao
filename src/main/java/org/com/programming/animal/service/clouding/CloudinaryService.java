@@ -1,4 +1,4 @@
-package org.com.programming.animal.service.cloudimg;
+package org.com.programming.animal.service.clouding;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -40,7 +40,6 @@ public class CloudinaryService {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
                     "public_id", UUID.randomUUID().toString()
             ));
-
             return uploadResult.get("secure_url").toString();
         }catch (IOException e){
             throw new RuntimeException("Falha ao fazer o upload do ficheiro para o Cloudinary.");

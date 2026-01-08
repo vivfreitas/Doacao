@@ -1,12 +1,10 @@
 package org.com.programming.animal.jpa;
 
 
-import org.com.programming.animal.entity.UserEntity;
+import org.com.programming.animal.entity.AnimalEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserJpa extends JpaRepository<UserEntity, Long> {
-
-    UserEntity findByEmailUser(String email);
+public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
 }

@@ -1,7 +1,7 @@
 package org.com.programming.animal.service.user.config;
 
 
-import org.com.programming.animal.jpa.UserJpa;
+import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.user.userDetails.UserDetailsServiceAuth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class UserDetailsConfig {
 
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
 
-    public UserDetailsConfig(UserJpa userJpa) {
-        this.userJpa = userJpa;
+    public UserDetailsConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public UserDetailsServiceAuth userDetailsServiceAuth(){
-        return new UserDetailsServiceAuth(userJpa); /* Coloca o JPA dentro da nossa classe para que ele busque o usuário. */
+        return new UserDetailsServiceAuth(userRepository); /* Coloca o JPA dentro da nossa classe para que ele busque o usuário. */
     }
 
     public PasswordEncoder passwordEncoder(){

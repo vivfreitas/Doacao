@@ -1,7 +1,7 @@
 package org.com.programming.animal.service.user.userDetails;
 
 import org.com.programming.animal.entity.UserEntity;
-import org.com.programming.animal.jpa.UserJpa;
+import org.com.programming.animal.jpa.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceAuth implements UserDetailsService {
 
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
 
-    public UserDetailsServiceAuth(UserJpa userJpa) {
-        this.userJpa = userJpa;
+    public UserDetailsServiceAuth(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userJpa.findByEmailUser(email);
+        UserEntity userEntity = userRepository.findByEmailUser(email);
 
         if (userEntity == null){
             throw new UsernameNotFoundException("E-mail não localizado.");
