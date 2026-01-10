@@ -1,6 +1,6 @@
 ##  🌟 Projeto: Amor de Pata
 
-Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interessadas em adotar animais com protetores e permitir a realização de doações, promovendo o bem-estar animal.
+Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interessadas em adotar animais e permitir a realização de doações.
 
 ### 📌 Funcionalidades
 
