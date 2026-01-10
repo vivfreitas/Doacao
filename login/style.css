@@ -10,8 +10,9 @@ body {
     background-color: #efefef;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden; 
+    /* Usado para a resposividade */
+    /* min-height: 100vh;
+    overflow: hidden;  */
 }
 
 header{
@@ -30,7 +31,7 @@ header{
 #titulo{
     color: #4D4D4D;
     font-weight: 900;
-    font-size: 24px;
+    font-size: 20px;
     /* margin-top: 25PX;
     margin-bottom: 12px; */
 }
@@ -47,7 +48,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: stretch; 
-    flex: 1; 
+    /* Usado para a resposividade */
+    /* flex: 1;  */
 }
 
 #laranja {
@@ -55,7 +57,8 @@ main {
     border-top-right-radius: 40px;
     background-color: #EA9901;
     width: 85%;
-    min-height: 100%; 
+    /* Quando voltar a usar as coisas do body e main comentadas, colocar isso para 100% */
+    min-height: 80vh; 
     display: flex;
     flex-direction: column; 
     justify-content: flex-end;
@@ -63,6 +66,8 @@ main {
     position: relative;
 }
 
+
+/* ========================== FORMULÁRIO ==============  */
 #form-login-cadastro{
     border-radius: 15px;
     position: absolute;
@@ -72,7 +77,88 @@ main {
     background-color: white;
 }
 
-/* ==========================  */
+
+form{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+#form-article{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+#form-login-cadastro p{
+    color: red;
+    font-size: 12px;
+}
+.label-form{
+    color: #9A9A9A;
+    font-size: 8px;
+    position: relative;
+}
+.input-style{
+    color: #555555;
+    border: 1px solid #EA9901; 
+    width: 100%;
+    padding: 8px  8px 8px 30px ;
+    font-size: 12px;
+    border-radius: 10px;
+    margin-top: 5px;
+    /* Muito útil para animação suave. 
+    O ease faz ela começar e terminar. */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.input-style:focus{
+    color: #555555;
+    outline: none;
+    border-color: #ffcf82;
+    box-shadow: 3px 3px 5px rgb(188, 188, 188);
+}
+.bi-person, 
+.bi-envelope-at, 
+.bi-key{
+    position: absolute;
+    top: 22px;
+    left: 5px;
+    color: #EA9901;
+    font-size: 18px;
+}
+#form-login-cadastro button{
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    border: none;
+    background-color: #EA9901;
+    color: white;
+    font-weight: 700;
+    box-shadow: 3px 3px 5px rgb(188, 188, 188);
+}
+
+#button-send{
+    display: flex;
+    justify-content: center;
+}
+#final-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+#final-form p{
+    color: #EA9901;
+}
+#logar-link{
+    color: #EA9901;
+    font-weight: 700;
+    text-decoration: none;
+}
+.auth-redes-img{
+    width: 15px;
+}
+/* ========================== FOOTER ==================*/
 footer{
 width: 100%;
     height: 100px;
@@ -94,7 +180,11 @@ footer p{
     color: white;
     font-size: 12px;
 }
-.bi{
+.bi-linkedin{
+    color: white;
+    font-size: 15px;
+}
+.bi-github{
     color: white;
     font-size: 15px;
 }

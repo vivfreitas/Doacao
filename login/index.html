@@ -16,12 +16,52 @@
     </header>
     <main>
         <div id="laranja">
-            <div id="form-login-cadastro"></div>
+            <div id="form-login-cadastro">
+                <article aria-label="form-cadastro" id="form-article">
+                <p class="erro-senha"> Senhas não conferem.</p>
+                <p class="erro-senha">Verifique-as e tente novamente.</p>
+
+                <form action="" id="form">
+
+                    <label for="id-name" class="label-form">
+                        NOME E SOBRENOME
+                        <span><i class="bi bi-person"></i></span><input type="text" name="" id="id-name" class="input-style">
+                    </label>
+
+                     <label for="id-email" class="label-form">
+                        E-MAIL
+                        <span><i class="bi bi-envelope-at"></i></span><input type="email" name="" id="id-email" class="input-style">
+                    </label>
+
+                    <label for="id-senha" class="label-form">
+                        SENHA
+                        <span><i class="bi bi-key"></i></i></span><input type="email" name="" id="id-senha" class="input-style">
+                    </label>
+
+                    <label for="id-senha" class="label-form">
+                        CONFIRME SUA SENHA
+                        <span><i class="bi bi-key"></i></span><input type="email" name="" id="id-senha" class="input-style">
+                    </label>
+                    
+                    <div id="button-send">
+                        <button> CADASTRA-SE </button>
+                    </div>
+                </form>
+                </article>
+                <div id="final-form">
+                    <p>OU</p>
+                    <div>
+                        <a href=""><img class="auth-redes-img" src="/imgs/facebook.png" alt="" srcset=""></a>
+                        <a href=""><img class="auth-redes-img"  src="/imgs/gmail.png" alt="" srcset=""></a>
+                    </div>
+                    <p> Já tem um cadastro? <span><a href="" id="logar-link"> Logue aqui!</a></span></p>
+                </div>
+            </div>
             <footer>
                 <div id="redesSociais">
                 <p>Rede: </p>
-                <a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
-                <a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+                <a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin" aria-label="Acessa meu linkedin"></i></a>
+                <a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-github" aria-label="Acessa meu github"></i></a>
                 </div>
                 <div id="final-footer-p"> <p >@ 2025 Vivian Freitas. Totos os direitos reservados.Logo criado com Canva. Imagens por Free!pik</p></div>
             </footer>
