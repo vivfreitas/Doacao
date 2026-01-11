@@ -6,6 +6,7 @@
     padding: 0;
     
 }
+
 body {
     background-color: #efefef;
     display: flex;
@@ -43,7 +44,7 @@ header{
 }
 /* ===================== */
 
-/* O container cinza */
+/* ============= CONTAINER */
 main {
     display: flex;
     justify-content: center;
@@ -90,9 +91,11 @@ form{
     align-items: center;
     padding: 20px;
 }
-#form-login-cadastro p{
+#erro-senha-email{
     color: red;
     font-size: 12px;
+    text-align: center;
+    visibility: hidden;
 }
 .label-form{
     color: #9A9A9A;
@@ -117,6 +120,7 @@ form{
     border-color: #ffcf82;
     box-shadow: 3px 3px 5px rgb(188, 188, 188);
 }
+
 .bi-person, 
 .bi-envelope-at, 
 .bi-key{
@@ -125,8 +129,9 @@ form{
     left: 5px;
     color: #EA9901;
     font-size: 18px;
+    z-index: 10;
 }
-#form-login-cadastro button{
+#bnt-form{
     padding: 10px;
     border-radius: 15px;
     font-size: 12px;
@@ -148,6 +153,7 @@ form{
     gap: 8px;
 }
 #final-form p{
+    font-size: 12px;
     color: #EA9901;
 }
 #logar-link{
@@ -158,6 +164,7 @@ form{
 .auth-redes-img{
     width: 15px;
 }
+
 /* ========================== FOOTER ==================*/
 footer{
 width: 100%;

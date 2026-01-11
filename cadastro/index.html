@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">    <title>Amor de Pata</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>Amor de Pata</title>
 </head>
 <body>
     <header>
@@ -14,14 +16,13 @@
             <p id="description-titulo"> Doe e/ou adote um amiguinho</p>
         </div>
     </header>
+    
     <main>
         <div id="laranja">
             <div id="form-login-cadastro">
                 <article aria-label="form-cadastro" id="form-article">
-                <p class="erro-senha"> Senhas não conferem.</p>
-                <p class="erro-senha">Verifique-as e tente novamente.</p>
-
-                <form action="" id="form">
+                <p id="erro-senha-email"> Senhas não conferem. <br>Verifique-as e tente novamente.</p>
+                <form action="" id="form" autocomplete="true">
 
                     <label for="id-name" class="label-form">
                         NOME E SOBRENOME
@@ -30,21 +31,21 @@
 
                      <label for="id-email" class="label-form">
                         E-MAIL
-                        <span><i class="bi bi-envelope-at"></i></span><input type="email" name="" id="id-email" class="input-style">
+                        <span><i id="teste" class="bi bi-envelope-at"></i></span><input type="email" name="" id="id-email" class="input-style">
                     </label>
 
                     <label for="id-senha" class="label-form">
                         SENHA
-                        <span><i class="bi bi-key"></i></i></span><input type="email" name="" id="id-senha" class="input-style">
+                        <span><i class="bi bi-key" id="icon-senha1"></i></i></span><input type="password" name="" id="id-senha-principal" class="input-style">
                     </label>
 
                     <label for="id-senha" class="label-form">
                         CONFIRME SUA SENHA
-                        <span><i class="bi bi-key"></i></span><input type="email" name="" id="id-senha" class="input-style">
+                        <span><i class="bi bi-key" id="icon-senha2"></i></span><input type="password" name="" id="id-senha-confirmada" class="input-style">
                     </label>
                     
                     <div id="button-send">
-                        <button> CADASTRA-SE </button>
+                        <button id="bnt-form" > CADASTRA-SE </button>
                     </div>
                 </form>
                 </article>
@@ -54,19 +55,19 @@
                         <a href=""><img class="auth-redes-img" src="/imgs/facebook.png" alt="" srcset=""></a>
                         <a href=""><img class="auth-redes-img"  src="/imgs/gmail.png" alt="" srcset=""></a>
                     </div>
-                    <p> Já tem um cadastro? <span><a href="" id="logar-link"> Logue aqui!</a></span></p>
+                    <p> Já tem um cadastro? <span><a href="/login/index.html" id="logar-link"> Logue aqui!</a></span></p>
                 </div>
             </div>
             <footer>
                 <div id="redesSociais">
                 <p>Rede: </p>
-                <a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin" aria-label="Acessa meu linkedin"></i></a>
-                <a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-github" aria-label="Acessa meu github"></i></a>
+                <a href="http://www.linkedin.com/in/vivianfreitas" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin" aria-label="Acessa meu linkedin"></i></a>
+                <a href="https://github.com/vivfreitas" target="_blank" rel="noopener noreferrer"><i class="bi bi-github" aria-label="Acessa meu github"></i></a>
                 </div>
                 <div id="final-footer-p"> <p >@ 2025 Vivian Freitas. Totos os direitos reservados.Logo criado com Canva. Imagens por Free!pik</p></div>
             </footer>
         </div>
     </main>
-
+    <script src="script.js"></script>
 </body>
 </html>
