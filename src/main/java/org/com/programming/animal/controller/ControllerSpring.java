@@ -4,18 +4,18 @@ package org.com.programming.animal.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
-import org.com.programming.animal.entity.DTOs.AnimalDTOlist;
-import org.com.programming.animal.entity.DTOs.TypeOfAnimalDTO;
+
 import org.com.programming.animal.entity.UserEntity;
+import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.animal.AnimalService;
 import org.com.programming.animal.service.clouding.CloudinaryService;
 import org.com.programming.animal.service.user.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("api")
@@ -24,20 +24,25 @@ public class ControllerSpring {
     private final UserService userService;
     private final AnimalService animalService;
     private final CloudinaryService cloudinaryService;
+    private final UserRepository userRepository;
 
-
-    public ControllerSpring(UserService userService, AnimalService animalService, CloudinaryService cloudinaryService) {
+    public ControllerSpring(UserService userService, AnimalService animalService, CloudinaryService cloudinaryService, UserRepository userRepository) {
         this.userService = userService;
         this.animalService = animalService;
         this.cloudinaryService = cloudinaryService;
+        this.userRepository = userRepository;
     }
 
     /* USUÁRIO ===================================================================================== */
     @PostMapping("/createUser")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity){
+    public ResponseEntity<Object> createUser(@RequestBody UserEntity userEntity){
+        if (userRepository.existsByEmailUser(userEntity.getEmailUser())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("E-mail já cadastrado");
+        }
         UserEntity obj = userService.create(userEntity);
-        return ResponseEntity.ok(obj);
+        return ResponseEntity.ok("Usuário criado!");
     }
+
     /* ANIMAL ====================================================================================== */
     /* @RequestBody -> Só recebe textos. Precisamos de algo que desempacote o multipart/form-data do front-end. Sendo assim, o @RequestPart.
     * Ao usar o multipart no front, as coisas vem dentro de uma caixa precisando ser desempacotada.*/

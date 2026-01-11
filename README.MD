@@ -27,7 +27,7 @@ Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interess
 ### Page cadastro e método POST
 
 **Front-end**:
-A página de cadastro permite que o usuário informe seus dados pessoais para criar uma conta e, posteriormente, acessar a tela de login. Caso já tenha login, ela permite que o usuário vá diretamente para a tela de login.
+A página de cadastro permite que o usuário informe seus dados pessoais para criar uma conta e, posteriormente, acessar a tela de login. Caso já tenha o cadastro, ela permite que o usuário vá diretamente para a tela de login.
 
 **Fluxo:**
 
@@ -49,7 +49,7 @@ A página de cadastro permite que o usuário informe seus dados pessoais para cr
 }
 ```
 
-As senhas são salvas en **hash** para proteção do usuário. Exemplo de retorno ao usuário ser salvo:
+As senhas são salvas em **hash** para proteção do usuário. Exemplo de retorno ao usuário ser salvo:
 
 ```json
 {

@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +31,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
+                .cors(cors -> cors.configurationSource(corsConfigurationClass()))
                 .csrf(AbstractHttpConfigurer:: disable)
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers("/api/createUser").permitAll();
@@ -42,5 +46,20 @@ public class SpringSecurityConfig {
                 .addFilterBefore(authToken, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
+    }
+
+    /* Configuração do CORs */
+    @Bean
+    public CorsConfigurationSource corsConfigurationClass(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+
+        corsConfiguration.addAllowedOrigin("http://127.0.0.1:5500");
+        corsConfiguration.setAllowCredentials(false); // Permite o uso de tokens
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
     }
 }
