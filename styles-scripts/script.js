@@ -2,7 +2,8 @@ const id_name = document.querySelector("#id-name");
 const id_email = document.querySelector("#id-email");
 const id_senha_principal = document.querySelector("#id-senha-principal");
 const id_senha_confirmada = document.querySelector("#id-senha-confirmada");
-const bnt_form = document.querySelector("#bnt-form");
+const bnt_form_cadastro = document.querySelector("#bnt-form");
+const bnt_form_login = document.querySelector("#bnt-login");
 const form = document.querySelector("#form");
 const erro_senha_email = document.querySelector("#erro-senha-email");
 const icon_email = document.querySelector(".bi-envelope-at");
@@ -33,7 +34,7 @@ function animacao_icones(elemento){
 }
 
 // ================== BOTÃO PARA ENVIAR AS INFORMAÇÕES DO USUÁRIO ==============
-bnt_form.addEventListener('click', async function name(event) {
+bnt_form_cadastro.addEventListener('click', async function name(event) {
 
     id_name.setAttribute('required', 'true');
     id_email.setAttribute('required', 'true');
@@ -105,3 +106,4 @@ bnt_form.addEventListener('click', async function name(event) {
         }
     }
 })
+
