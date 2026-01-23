@@ -1,6 +1,10 @@
 package org.com.programming.animal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,9 +19,18 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
 
+    @NotNull(message = "Name cannot be null")
+    @NotEmpty(message = "Name cannot be empty")
+    @NotBlank(message = "Name cannot be blank")
     private String nameUser;
     @Column(unique = true)
+
+    @Email(message = "Email need be valid")
+    @NotBlank(message = "Email cannot be blank")
     private String emailUser;
+
+    @NotEmpty(message = "Password cannot be empty")
+    @NotBlank(message = "Password cannot be blank")
     private String passwordUser;
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<AnimalEntity> listAnimal;

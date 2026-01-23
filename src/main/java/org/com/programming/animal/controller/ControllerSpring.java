@@ -2,6 +2,7 @@ package org.com.programming.animal.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotNull;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 
@@ -15,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-
 
 @RestController
 @RequestMapping("api")
@@ -40,7 +40,7 @@ public class ControllerSpring {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("E-mail já cadastrado");
         }
         UserEntity obj = userService.create(userEntity);
-        return ResponseEntity.ok("Usuário criado!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado!");
     }
 
     /* ANIMAL ====================================================================================== */

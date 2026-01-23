@@ -1,6 +1,7 @@
 package org.com.programming.animal.service.user;
 
 
+import jakarta.validation.Valid;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.user.config.UserDetailsConfig;
@@ -25,7 +26,7 @@ public class UserService {
     }
 
     /* CREATE USER */
-    public UserEntity create(UserEntity objUser){
+    public UserEntity create(@Valid UserEntity objUser){
         objUser.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.getPassword()));
         return userRepository.save(objUser);
     }
