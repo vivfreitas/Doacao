@@ -6,6 +6,7 @@
     padding: 0;
     
 }
+
 body {
     background-color: #efefef;
     display: flex;
@@ -43,7 +44,7 @@ header{
 }
 /* ===================== */
 
-/* O container cinza */
+/* ============= CONTAINER */
 main {
     display: flex;
     justify-content: center;
@@ -52,7 +53,8 @@ main {
     /* flex: 1;  */
 }
 
-#laranja {
+/* index cadastro */
+.painel-laranja {
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     background-color: #EA9901;
@@ -65,10 +67,13 @@ main {
     align-items: center;
     position: relative;
 }
-
+/* index login */
+.laranja-login{
+    min-height: 65vh;
+}
 
 /* ========================== FORMULÁRIO ==============  */
-#form-login-cadastro{
+.form-login{
     border-radius: 15px;
     position: absolute;
     top: -80px;
@@ -76,7 +81,6 @@ main {
     width: 90%;
     background-color: white;
 }
-
 
 form{
     margin-top: 20px;
@@ -90,9 +94,11 @@ form{
     align-items: center;
     padding: 20px;
 }
-#form-login-cadastro p{
+#erro-senha-email{
     color: red;
     font-size: 12px;
+    text-align: center;
+    visibility: hidden;
 }
 .label-form{
     color: #9A9A9A;
@@ -117,6 +123,7 @@ form{
     border-color: #ffcf82;
     box-shadow: 3px 3px 5px rgb(188, 188, 188);
 }
+
 .bi-person, 
 .bi-envelope-at, 
 .bi-key{
@@ -125,8 +132,10 @@ form{
     left: 5px;
     color: #EA9901;
     font-size: 18px;
+    z-index: 10;
 }
-#form-login-cadastro button{
+/* BTN CADASTRO */
+.bnt-form-cadastro{
     padding: 10px;
     border-radius: 15px;
     font-size: 12px;
@@ -135,6 +144,10 @@ form{
     color: white;
     font-weight: 700;
     box-shadow: 3px 3px 5px rgb(188, 188, 188);
+}
+/* BTN LOGIN */
+.bnt-form-login{
+    width: 150px;
 }
 
 #button-send{
@@ -148,9 +161,10 @@ form{
     gap: 8px;
 }
 #final-form p{
+    font-size: 12px;
     color: #EA9901;
 }
-#logar-link{
+#logar-cadastro{
     color: #EA9901;
     font-weight: 700;
     text-decoration: none;
@@ -158,6 +172,7 @@ form{
 .auth-redes-img{
     width: 15px;
 }
+
 /* ========================== FOOTER ==================*/
 footer{
 width: 100%;
