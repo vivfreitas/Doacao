@@ -38,6 +38,8 @@ public class SpringSecurityConfig {
                     auth.requestMatchers("/api/AllAnimal").permitAll();
                     auth.requestMatchers("/api/createAnimal").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
+                    auth.requestMatchers("/api/listas").permitAll();
+                    auth.requestMatchers("/api/emailTeste").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement( session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) /* Não mantemos login na nossa API, ou seja, STATELESS. */

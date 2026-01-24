@@ -1,4 +1,4 @@
-package org.com.programming.animal.exeptions;
+package org.com.programming.animal.globalExceptions;
 
 import org.springframework.http.HttpStatus;
 
@@ -15,8 +15,16 @@ public class GlobalExceptionHandling extends ResponseEntityExceptionHandler {
         int statusCode = 0;
 
         /* É bom verificar como a exceção interna está chegando para o usuário. */
+        /* Por hora vamos deixar assim: */
         if (exception instanceof HttpExceptionCustomized){
-            statusCode = HttpStatus.FORBIDDEN.value();
+            statusCode = HttpStatus.NOT_FOUND.value();
+        }else{
+            statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+            return new ResponseEntity<>(
+                    new ErrorResponse(
+                            String.valueOf(statusCode),
+                            "Um erro inesperado ocorreu."),
+                    HttpStatus.valueOf(statusCode));
         }
         return new ResponseEntity<>(new ErrorResponse(
                 ((ExceptionCustomized) exception).getCode(),

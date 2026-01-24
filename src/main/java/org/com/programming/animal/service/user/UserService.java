@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.user.config.UserDetailsConfig;
+import org.com.programming.animal.service.user.exception.UsuarioNaoEncontradoException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,16 @@ public class UserService {
     public UserEntity create(@Valid UserEntity objUser){
         objUser.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.getPassword()));
         return userRepository.save(objUser);
+    }
+
+//    TESTE EXCEÇÕES
+    public String retornarNomeUsuario(String emailUsuario){
+        try{
+            UserEntity obj = userRepository.findByEmailUser(emailUsuario);
+            return obj.getNameUser();
+        } catch (Exception e){
+            throw new UsuarioNaoEncontradoException(emailUsuario);
+        }
     }
 
 

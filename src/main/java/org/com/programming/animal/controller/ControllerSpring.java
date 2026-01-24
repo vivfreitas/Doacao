@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 
+import org.com.programming.animal.entity.DTOs.UserEmailDTO;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.animal.AnimalService;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -41,6 +43,19 @@ public class ControllerSpring {
         }
         UserEntity obj = userService.create(userEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado!");
+    }
+
+
+    // TESTANDO EXCEPTION
+    @GetMapping("listas")
+    public ResponseEntity<List<UserEntity>> listAll(){
+        return ResponseEntity.ok(userService.userEntities());
+    }
+
+    @PostMapping("emailTeste")
+    public ResponseEntity<String> testeException(@RequestBody UserEmailDTO emailObj){
+        String obj = userService.retornarNomeUsuario(emailObj.email());
+        return ResponseEntity.ok(obj);
     }
 
     /* ANIMAL ====================================================================================== */

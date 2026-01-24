@@ -1,4 +1,4 @@
-package org.com.programming.animal.exeptions;
+package org.com.programming.animal.globalExceptions;
 
 /* Uma classes com excecao customizada para a plicação que estende de RuntimeExpetion */
 public class ExceptionCustomized extends RuntimeException{
