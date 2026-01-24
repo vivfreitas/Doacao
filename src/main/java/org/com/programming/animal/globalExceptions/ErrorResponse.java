@@ -1,20 +1,32 @@
 package org.com.programming.animal.globalExceptions;
 
+import java.time.Instant;
+
 public class ErrorResponse {
 
-    private String code;
+    private Integer code;
     private String message;
+    private Instant timestamp;
 
-    public ErrorResponse(String code, String message) {
+    public ErrorResponse(Integer code, String message, Instant timestamp) {
         this.code = code;
         this.message = message;
+        this.timestamp = timestamp;
     }
 
-    public String getCode() {
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

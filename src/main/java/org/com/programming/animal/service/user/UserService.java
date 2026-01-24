@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.user.config.UserDetailsConfig;
+import org.com.programming.animal.service.user.exception.NullPointExceptionCustomized;
 import org.com.programming.animal.service.user.exception.UsuarioNaoEncontradoException;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +35,12 @@ public class UserService {
 
 //    TESTE EXCEÇÕES
     public String retornarNomeUsuario(String emailUsuario){
-        try{
-            UserEntity obj = userRepository.findByEmailUser(emailUsuario);
-            return obj.getNameUser();
-        } catch (Exception e){
-            throw new UsuarioNaoEncontradoException(emailUsuario);
-        }
-    }
+        UserEntity emailEncontrado = userRepository.findByEmailUser(emailUsuario);
 
+        if (emailEncontrado == null){
+            throw new NullPointExceptionCustomized();
+        }
+        return emailEncontrado.getNameUser();
+    }
 
 }
