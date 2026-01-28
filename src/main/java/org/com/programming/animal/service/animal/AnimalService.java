@@ -7,6 +7,7 @@ import org.com.programming.animal.entity.DTOs.AnimalDTOlist;
 import org.com.programming.animal.entity.DTOs.UserDTO;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.AnimalRepository;
+import org.com.programming.animal.service.exception.NotAuthException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,21 +26,17 @@ public class AnimalService {
 
     /* CREATE ANIMAL */
     public AnimalDTO create(AnimalEntity objAnimal){
+
         Authentication autenticacao = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity usuarioLogado = (UserEntity) autenticacao.getPrincipal(); // Pegando o usuário autenticado.
-        objAnimal.setUserId(usuarioLogado);
+            UserEntity usuarioLogado = (UserEntity) autenticacao.getPrincipal(); // Pegando o usuário autenticado.
+            objAnimal.setUserId(usuarioLogado);
+            AnimalEntity animalSaved = animalRepository.save(objAnimal);
+            UserDTO usuarioDTO = new UserDTO(usuarioLogado.getIdUser(), usuarioLogado.getNameUser());
 
-        AnimalEntity animalSaved = animalRepository.save(objAnimal);
-        UserDTO usuarioDTO = new UserDTO(usuarioLogado.getIdUser(), usuarioLogado.getNameUser());
-
-        return new AnimalDTO(
-                animalSaved.getIdAnimal(),
-                animalSaved.getNameAnimal(),
-                animalSaved.getImgUrl(),
-                usuarioDTO
-        );
+            return new AnimalDTO(
+                    animalSaved.getIdAnimal(),
+                    animalSaved.getNameAnimal(),
+                    animalSaved.getImgUrl(),
+                    usuarioDTO);
+        }
     }
-
-
-
-}

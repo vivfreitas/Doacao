@@ -2,11 +2,10 @@ package org.com.programming.animal.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 
-import org.com.programming.animal.entity.DTOs.UserEmailDTO;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.animal.AnimalService;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -37,15 +35,12 @@ public class ControllerSpring {
 
     /* USUÁRIO ===================================================================================== */
     @PostMapping("/createUser")
-    public ResponseEntity<Object> createUser(@RequestBody UserEntity userEntity){
-        if (userRepository.existsByEmailUser(userEntity.getEmailUser())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("E-mail já cadastrado");
-        }
+    public ResponseEntity<Object> createUser(@Valid @RequestBody UserEntity userEntity){
         UserEntity obj = userService.create(userEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado!");
     }
 
-
+/*
     // TESTANDO EXCEPTION
     @GetMapping("listas")
     public ResponseEntity<List<UserEntity>> listAll(){
@@ -57,6 +52,7 @@ public class ControllerSpring {
         String obj = userService.retornarNomeUsuario(emailObj.email());
         return ResponseEntity.ok(obj);
     }
+*/
 
     /* ANIMAL ====================================================================================== */
     /* @RequestBody -> Só recebe textos. Precisamos de algo que desempacote o multipart/form-data do front-end. Sendo assim, o @RequestPart.

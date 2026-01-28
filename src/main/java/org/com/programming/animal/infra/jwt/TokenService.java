@@ -39,7 +39,7 @@ public class TokenService {
                 .setClaims(extractClaim)
                 .setSubject(userDetails.getUsername()) // -> Na classe ele já retorna o e-mail do usuário.
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 5))
                 .signWith(signatureToken(), SignatureAlgorithm.HS256)
                 .compact();
     }
