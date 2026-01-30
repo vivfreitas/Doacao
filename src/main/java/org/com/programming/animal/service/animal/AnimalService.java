@@ -3,11 +3,9 @@ package org.com.programming.animal.service.animal;
 
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
-import org.com.programming.animal.entity.DTOs.AnimalDTOlist;
 import org.com.programming.animal.entity.DTOs.UserDTO;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.AnimalRepository;
-import org.com.programming.animal.service.exception.NotAuthException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

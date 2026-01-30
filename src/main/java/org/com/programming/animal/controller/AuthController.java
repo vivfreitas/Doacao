@@ -1,40 +1,39 @@
 package org.com.programming.animal.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.com.programming.animal.entity.DTOs.AuthRequest;
 import org.com.programming.animal.entity.DTOs.AuthResponse;
-import org.com.programming.animal.infra.jwt.TokenService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.com.programming.animal.service.user.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
-    private final TokenService tokenService;
+    private final UserService userService;
 
+    public AuthController(UserService userService) {
+        this.userService = userService;
 
-    public AuthController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, TokenService tokenService) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.tokenService = tokenService;
     }
 
+    @Operation(description = "Realiza o login do usuário.")
+    @ApiResponses(value ={
+        @ApiResponse(responseCode = "200", description = "Realiza o login do usuário passando o e-mail e senha."),
+        @ApiResponse(responseCode = "500", description = "E-mail inexistente no banco de dados. É necessário realizar o cadastro.")}
+    )
     @PostMapping("/login")
-    public AuthResponse loginUser(@RequestBody AuthRequest request){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.email(), request.senha())
-        );
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.email());
-        final String token = tokenService.generateToken(userDetails);
-        return new AuthResponse(token);
+    public AuthResponse loginUser(@Valid @RequestBody AuthRequest request){
+        String token = userService.loginUser(request);
+        return new AuthResponse(token, Instant.now());
     }
 
 }

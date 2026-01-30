@@ -1,4 +1,12 @@
 package org.com.programming.animal.entity.DTOs;
 
-public record AnimalDTO(Long idAnimal, String nameAnimal, String imgUrl, UserDTO userDTO ) {
+import jakarta.validation.constraints.NotNull;
+
+public record AnimalDTO(
+        Long idAnimal,
+        @NotNull(message = "Nome do animal")
+        String nameAnimal,
+        @NotNull(message = "Arquivo de foto do animal")
+        String imgUrl,
+        UserDTO userDTO ) {
 }
