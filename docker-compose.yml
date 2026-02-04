@@ -1,0 +1,29 @@
+# Conexao com o BD e um container para a nossa API
+services:
+  mysql-db:
+    image: mysql:oraclelinux9
+    container_name: mysql-amor-de-pata
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: patas
+    ports:
+      - "8085:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  projeto-patas:
+    build: .
+    image: vivianfreitasdev/amor-de-pata:v1
+    container_name: amor-de-pata
+    ports:
+      - "8080:8080"
+    depends_on:
+        mysql-db:
+          condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/patas
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD:
