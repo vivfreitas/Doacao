@@ -7,6 +7,8 @@ import org.com.programming.animal.infra.jwt.TokenService;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.exception.EmailExistException;
 import org.com.programming.animal.service.user.config.UserDetailsConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class UserService {
+//    LOG PARA A INSTÂNCIA
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
     private final UserDetailsConfig userDetailsConfig;
@@ -36,12 +40,14 @@ public class UserService {
     /* CREATE USER */
     public UserEntity create(UserDTOsave objUser){
         if (userRepository.existsByEmailUser(objUser.userEmail())){
+            logger.error("O usuário não pode ser criado. Usuário: {}", objUser);
             throw new EmailExistException();
         }
         UserEntity user = new UserEntity();
         user.setNameUser(objUser.userName());
         user.setEmailUser(objUser.userEmail());
         user.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.userPassword()));
+        logger.info("Usuário foi criado com sucesso: {}", user.getIdUser());
         return userRepository.save(user);
     }
 

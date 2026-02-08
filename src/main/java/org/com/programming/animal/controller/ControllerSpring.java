@@ -25,7 +25,6 @@ import java.io.IOException;
 @RestController
 @RequestMapping("api")
 public class ControllerSpring {
-
     private final UserService userService;
     private final AnimalService animalService;
     private final CloudinaryService cloudinaryService;
@@ -47,20 +46,6 @@ public class ControllerSpring {
         UserEntity obj = userService.create(userEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado!");
     }
-
-/*
-    // TESTANDO EXCEPTION
-    @GetMapping("listas")
-    public ResponseEntity<List<UserEntity>> listAll(){
-        return ResponseEntity.ok(userService.userEntities());
-    }
-
-    @PostMapping("emailTeste")
-    public ResponseEntity<String> testeException(@RequestBody UserEmailDTO emailObj){
-        String obj = userService.retornarNomeUsuario(emailObj.email());
-        return ResponseEntity.ok(obj);
-    }
-*/
 
     /* ANIMAL ====================================================================================== */
     /* @RequestBody -> Só recebe textos. Precisamos de algo que desempacote o multipart/form-data do front-end. Sendo assim, o @RequestPart.

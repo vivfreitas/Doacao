@@ -16,10 +16,12 @@ services:
 
   projeto-patas:
     build: .
-    image: vivianfreitasdev/amor-de-pata:v1
+    image: vivianfreitasdev/amor-de-pata:v2
     container_name: amor-de-pata
     ports:
       - "8080:8080"
+    volumes:
+      - ./logs:/app/logs
     depends_on:
         mysql-db:
           condition: service_healthy
