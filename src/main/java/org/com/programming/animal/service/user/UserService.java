@@ -47,11 +47,12 @@ public class UserService {
         user.setNameUser(objUser.userName());
         user.setEmailUser(objUser.userEmail());
         user.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.userPassword()));
-        logger.info("Usuário foi criado com sucesso: {}", user.getIdUser());
-        return userRepository.save(user);
+        UserEntity usuario = userRepository.save(user);
+        logger.info("Usuário foi criado com sucesso: {}", usuario.getIdUser()); // ISSO DAQUI ESTA DANDO NULL. ARRUMAR!
+        return usuario;
     }
 
-    // Login usuário
+    // Login usuário - LOAD USER NAO RETORNA USER NOT FOUND EXCEPTION. ARRUMAR.
     public String loginUser(AuthRequest authResponse){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authResponse.email(), authResponse.senha()));
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authResponse.email());

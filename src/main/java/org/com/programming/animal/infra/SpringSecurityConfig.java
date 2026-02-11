@@ -1,6 +1,7 @@
 package org.com.programming.animal.infra;
 
 import org.com.programming.animal.infra.jwt.AuthToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,6 +23,7 @@ public class SpringSecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final AuthToken authToken;
 
+    @Autowired
     public SpringSecurityConfig(AuthenticationProvider authenticationProvider, AuthToken authToken){
         /* Por enquanto não iremos implementa-lo. */
         this.authenticationProvider = authenticationProvider;

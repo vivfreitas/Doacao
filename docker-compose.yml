@@ -20,12 +20,14 @@ services:
     container_name: amor-de-pata
     ports:
       - "8080:8080"
+      - "5005:5005" # Porta do Debug
     volumes:
       - ./logs:/app/logs
     depends_on:
         mysql-db:
           condition: service_healthy
     environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/patas
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_PASSWORD: ""
