@@ -19,6 +19,7 @@ Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interess
 5. [x] HTML.
 6. [x] CSS.
 7. [x] JavaScript.
+8. [x] Docker.
 
 **O projeto segue uma arquitetura cliente-servidor:**
 1. [x] **Front-end:** Interface para o usuário

@@ -27,6 +27,7 @@ services:
         mysql-db:
           condition: service_healthy
     environment:
+      # Agente de Debug
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/patas
       SPRING_DATASOURCE_USERNAME: root

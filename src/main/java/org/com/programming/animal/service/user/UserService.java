@@ -6,15 +6,18 @@ import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.infra.jwt.TokenService;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.exception.EmailExistException;
+import org.com.programming.animal.service.exception.EmailNotFoundException;
 import org.com.programming.animal.service.user.config.UserDetailsConfig;
+import org.com.programming.animal.service.user.userDetails.UserDetailsServiceAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -26,14 +29,14 @@ public class UserService {
     private final UserDetailsConfig userDetailsConfig;
 
     private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsServiceAuth userDetailsServiceAuth;
     private final TokenService tokenService;
 
-    public UserService(UserRepository userRepository, UserDetailsConfig userDetailsConfig, AuthenticationManager authenticationManager, UserDetailsService userDetailsService, TokenService tokenService){
+    public UserService(UserRepository userRepository, UserDetailsConfig userDetailsConfig, AuthenticationManager authenticationManager, UserDetailsServiceAuth userDetailsServiceAuth, TokenService tokenService){
         this.userRepository = userRepository;
         this.userDetailsConfig = userDetailsConfig;
         this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
+        this.userDetailsServiceAuth = userDetailsServiceAuth;
         this.tokenService = tokenService;
     }
 
@@ -48,16 +51,26 @@ public class UserService {
         user.setEmailUser(objUser.userEmail());
         user.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.userPassword()));
         UserEntity usuario = userRepository.save(user);
-        logger.info("Usuário foi criado com sucesso: {}", usuario.getIdUser()); // ISSO DAQUI ESTA DANDO NULL. ARRUMAR!
+        logger.info("Usuário foi criado com sucesso: {}", usuario.getIdUser());
         return usuario;
     }
-
-    // Login usuário - LOAD USER NAO RETORNA USER NOT FOUND EXCEPTION. ARRUMAR.
+    // Tratando e-mail nao encontrado do usuario e retornando no JSON.
     public String loginUser(AuthRequest authResponse){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authResponse.email(), authResponse.senha()));
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authResponse.email());
-            final String token = tokenService.generateToken(userDetails);
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authResponse.email(),
+                            authResponse.senha())
+            );
+            UserDetails userDetails = userDetailsServiceAuth.loadUserByUsername(authResponse.email());
+            String token = tokenService.generateToken(userDetails);
+            logger.debug("Token criado: {}", token);
+            logger.info("Token do usuário criado às {}", Instant.now());
             return token;
-
+        }catch (BadCredentialsException e){
+            logger.debug("E-mail e/ou senha incorretos. Não foi possível gerar token. {}", authResponse);
+            logger.warn("Falha ao fazer login do usuário. Credenciais incorretas.");
+            throw new EmailNotFoundException(authResponse.email());
+        }
     }
 }

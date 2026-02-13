@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
 
+
 @RestController
 @RequestMapping("auth")
 public class AuthController {
@@ -31,6 +32,7 @@ public class AuthController {
         @ApiResponse(responseCode = "500", description = "E-mail inexistente no banco de dados. É necessário realizar o cadastro.")}
     )
     @PostMapping("/login")
+    // Colocar tempo de duracao do token
     public AuthResponse loginUser(@Valid @RequestBody AuthRequest request){
         String token = userService.loginUser(request);
         return new AuthResponse(token, Instant.now());
