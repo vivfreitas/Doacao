@@ -25,6 +25,9 @@ Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interess
 1. [x] **Front-end:** Interface para o usuário
 2. [x] **Back-end:** API REST responsável pelas regras de negócio, autenticação e persistência de dados
 ****
+
+## UML do projeto
+[AmorDePata.pdf](../../PDFs/AmorDePata.pdf)
 ### Page cadastro e método POST
 
 **Front-end**:
