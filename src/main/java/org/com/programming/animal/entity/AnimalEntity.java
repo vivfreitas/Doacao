@@ -1,6 +1,7 @@
 package org.com.programming.animal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_animal")
@@ -10,14 +11,21 @@ public class AnimalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAnimal;
 
+    @NotBlank
     private String nameAnimal;
+    @NotBlank
     private String typeAnimal; // Cachorro ou gato.
+    @NotBlank
     private Integer yearAnimal;
+    @NotBlank
     private String locatedAnimal;
+    @NotBlank
     private String contactAnimal;
     @Column(length = 1024)
+    @NotBlank
     private String imgUrl;
     @Column(length = 1000)
+    @NotBlank
     private String detailsAnimal;
     @ManyToOne
     @JoinColumn(name = "idUser")

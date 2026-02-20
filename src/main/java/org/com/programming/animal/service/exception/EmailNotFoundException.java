@@ -7,7 +7,7 @@ import java.time.Instant;
 
 public class EmailNotFoundException extends ExceptionCustomized {
     public EmailNotFoundException(String message) {
-        super(404, "O e-mail" + message + "não foi localizado.", Instant.now());
+        super(404, "O e-mail " + message + " não foi localizado.", Instant.now());
     }
 
     @Override

@@ -39,10 +39,11 @@ public class UserService {
         this.tokenService = tokenService;
     }
 
-    /* CREATE USER */
+    // Criando Usuário
     public UserEntity create(UserDTOsave objUser){
         if (userRepository.existsByEmailUser(objUser.userEmail())){
-            logger.error("O usuário não pode ser criado. Usuário: {}", objUser);
+            logger.debug("Usuário tentou realizar cadastro com e-mail já cadastrado. E-mail utilizado {}", objUser.userEmail());
+            logger.error("O usuário não pode ser criado.");
             throw new EmailExistException();
         }
         UserEntity user = new UserEntity();
@@ -50,10 +51,12 @@ public class UserService {
         user.setEmailUser(objUser.userEmail());
         user.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.userPassword()));
         UserEntity usuario = userRepository.save(user);
+        logger.debug("Usuário criado com sucesso!");
         logger.info("Usuário foi criado com sucesso: {}", usuario.getIdUser());
         return usuario;
     }
-    // Tratando e-mail nao encontrado do usuario e retornando no JSON.
+
+    // Login Usuário
     public String loginUser(AuthRequest authResponse){
         try{
             authenticationManager.authenticate(
