@@ -43,7 +43,7 @@ public class SpringSecurityConfig {
                     auth.requestMatchers("/webjars/**").permitAll();
 
                     auth.requestMatchers("/api/createUser").permitAll();
-                    auth.requestMatchers("/api/AllAnimal").permitAll();
+                    auth.requestMatchers("/api/listAnimals").permitAll();
                     auth.requestMatchers("/api/createAnimal").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.anyRequest().authenticated();

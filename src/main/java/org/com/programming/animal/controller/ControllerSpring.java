@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 
+import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
 import org.com.programming.animal.entity.DTOs.UserDTOsave;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.UserRepository;
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -70,6 +72,12 @@ public class ControllerSpring {
 
         AnimalDTO objAnimal = animalService.create(animalEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(objAnimal);
+    }
+
+    // List all animal - Do not necessary auth.
+    @GetMapping("listAnimals")
+    public ResponseEntity<List<ListAnimalDTO>> listResponseEntityAnimal(){
+        return ResponseEntity.ok(animalService.listAllAnimal());
     }
 
 }

@@ -6,6 +6,8 @@ import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
 import org.com.programming.animal.entity.DTOs.UserDTO;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.AnimalRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.List;
 public class AnimalService {
 
     private final AnimalRepository animalRepository;
+    private static final Logger logger = LoggerFactory.getLogger(AnimalService.class);
 
     public AnimalService(AnimalRepository animalRepository){
         this.animalRepository = animalRepository;
@@ -36,10 +39,10 @@ public class AnimalService {
                 usuarioDTO);
         }
 
-    // Criar lista para pegar todos os animais.
     // Criar lista para pegar apenas gato.
     // Criar lista para pegar apenas cachorro.
     // Logs
+    // List all animal - Do not necessary auth.
     public List<ListAnimalDTO> listAllAnimal(){
         List<ListAnimalDTO> newAnimais = new ArrayList<>();
         List<AnimalEntity> allAnimais = animalRepository.findAll();
@@ -49,5 +52,9 @@ public class AnimalService {
                     animal.getYearAnimal(), animal.getLocatedAnimal(),
                     animal.getImgUrl(), animal.getDetailsAnimal(), animal.getUserId().getNameUser(), animal.getUserId().getIdUser()));
         }
+        logger.info("Get all animals successfully");
+        return newAnimais;
     }
+
+
 }

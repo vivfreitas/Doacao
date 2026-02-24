@@ -11,10 +11,11 @@ public class AnimalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAnimal;
 
+    // MUDAR - COLOCAR ENUM DOS ANIMAIS E RAÇA
     @NotBlank
     private String nameAnimal;
     @NotBlank
-    private String typeAnimal; // Cachorro ou gato.
+    private String typeAnimal; // Gato ou cachorro.
     @NotBlank
     private Integer yearAnimal;
     @NotBlank
