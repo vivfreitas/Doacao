@@ -62,9 +62,9 @@ public class AuthToken extends OncePerRequestFilter {
             /* Mostrar para o usuário que o seu token foi expirado. Aqui escrevemos o HTTP a mão e jogar como JSON. */
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
             response.setContentType("application/json");
-            response.getWriter().write("""
-            {"code":401,"message":"Token expirado","timestamp":"%s"}
-        """.formatted(Instant.now()));
+            response.getWriter().write(
+            """
+            {"code":401,"message":"Token expirado e/ou usuário não autenticado","timestamp":"%s"}""".formatted(Instant.now()));
         }
     }
 }

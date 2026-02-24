@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class AnimalService {
 
@@ -27,34 +28,50 @@ public class AnimalService {
 
     // Criando Animal
     public AnimalDTO create(AnimalEntity objAnimal){
-        Authentication autenticacao = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity usuarioLogado = (UserEntity) autenticacao.getPrincipal(); // Pegando o usuário autenticado.
-        objAnimal.setUserId(usuarioLogado);
+        Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity authTrue = (UserEntity) authUser.getPrincipal();
+        objAnimal.setUserId(authTrue);
         AnimalEntity animalSaved = animalRepository.save(objAnimal);
-        UserDTO usuarioDTO = new UserDTO(usuarioLogado.getIdUser(), usuarioLogado.getNameUser());
+        UserDTO userDTO = new UserDTO(authTrue.getIdUser(), authTrue.getNameUser());
+
         return new AnimalDTO(
                 animalSaved.getIdAnimal(),
                 animalSaved.getNameAnimal(),
+                animalSaved.getTypeAnimal(),
+                animalSaved.getBreedAnimal(),
+                animalSaved.getYearAnimal(),
+                animalSaved.getLocatedAnimal(),
+                animalSaved.getContactAnimal(),
+                animalSaved.getDetailsAnimal(),
                 animalSaved.getImgUrl(),
-                usuarioDTO);
+                userDTO);
         }
 
-    // Criar lista para pegar apenas gato.
-    // Criar lista para pegar apenas cachorro.
+
     // Logs
     // List all animal - Do not necessary auth.
     public List<ListAnimalDTO> listAllAnimal(){
-        List<ListAnimalDTO> newAnimais = new ArrayList<>();
-        List<AnimalEntity> allAnimais = animalRepository.findAll();
-        for (AnimalEntity animal : allAnimais){
-            newAnimais.add(new ListAnimalDTO(
-                    animal.getNameAnimal(), animal.getTypeAnimal(),
-                    animal.getYearAnimal(), animal.getLocatedAnimal(),
-                    animal.getImgUrl(), animal.getDetailsAnimal(), animal.getUserId().getNameUser(), animal.getUserId().getIdUser()));
+        List<ListAnimalDTO> newAnimals = new ArrayList<>();
+        List<AnimalEntity> allAnimals = animalRepository.findAll();
+
+        for (AnimalEntity animal : allAnimals){
+            newAnimals.add(new ListAnimalDTO(
+                    animal.getNameAnimal(),
+                    animal.getTypeAnimal(),
+                    animal.getBreedAnimal(),
+                    animal.getYearAnimal(),
+                    animal.getLocatedAnimal(),
+                    animal.getContactAnimal(),
+                    animal.getDetailsAnimal(),
+                    animal.getImgUrl(),
+                    animal.getUserId().getNameUser(),
+                    animal.getUserId().getIdUser()));
         }
         logger.info("Get all animals successfully");
-        return newAnimais;
+        return newAnimals;
     }
 
+    // Criar lista para pegar apenas gato.
+    // Criar lista para pegar apenas cachorro.
 
 }

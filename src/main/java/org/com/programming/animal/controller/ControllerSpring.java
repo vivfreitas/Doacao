@@ -8,11 +8,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
-
 import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
 import org.com.programming.animal.entity.DTOs.UserDTOsave;
 import org.com.programming.animal.entity.UserEntity;
-import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.animal.AnimalService;
 import org.com.programming.animal.service.clouding.CloudinaryService;
 import org.com.programming.animal.service.user.UserService;
@@ -50,8 +48,6 @@ public class ControllerSpring {
     }
 
     /* ANIMAL ====================================================================================== */
-    /* @RequestBody -> Só recebe textos. Precisamos de algo que desempacote o multipart/form-data do front-end. Sendo assim, o @RequestPart.
-    * Ao usar o multipart no front, as coisas vem dentro de uma caixa precisando ser desempacotada.*/
     @Operation(description = "Cria um animal se o usuário tiver autenticado.")
     @ApiResponses(value ={
             @ApiResponse(responseCode = "201", description = "A cada um animal criado é lançado um 201 - CREATED. É usado o multipart/form-data"),
@@ -60,8 +56,7 @@ public class ControllerSpring {
     @PostMapping(value = "/createAnimal", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AnimalDTO> createAnimal(
             @Valid
-            @RequestPart("animal") String animalJson, // 1. Recebe os dados do animal como texto JSON
-            @RequestPart("arquivo") MultipartFile multipartFile // 2. Recebe o arquivo da imagem
+            @RequestPart("animal") String animalJson, @RequestPart("arquivo") MultipartFile multipartFile // 2. Recebe o arquivo da imagem
     ) throws IOException {
 
         // 3. Convertendo o texto JSON de volta para um objeto AnimalEntity
