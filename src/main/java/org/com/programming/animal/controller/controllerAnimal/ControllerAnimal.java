@@ -1,5 +1,4 @@
-package org.com.programming.animal.controller;
-
+package org.com.programming.animal.controller.controllerAnimal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,43 +8,30 @@ import jakarta.validation.Valid;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
-import org.com.programming.animal.entity.DTOs.UserDTOsave;
-import org.com.programming.animal.entity.UserEntity;
+import org.com.programming.animal.entity.DTOs.TypeAnimalDTO;
 import org.com.programming.animal.service.animal.AnimalService;
 import org.com.programming.animal.service.clouding.CloudinaryService;
-import org.com.programming.animal.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
-public class ControllerSpring {
-    private final UserService userService;
+@RequestMapping("api/animal")
+public class ControllerAnimal {
+
     private final AnimalService animalService;
     private final CloudinaryService cloudinaryService;
 
-    public ControllerSpring(UserService userService, AnimalService animalService, CloudinaryService cloudinaryService) {
-        this.userService = userService;
+    public ControllerAnimal(AnimalService animalService, CloudinaryService cloudinaryService) {
         this.animalService = animalService;
         this.cloudinaryService = cloudinaryService;
     }
 
-    /* USUÁRIO ===================================================================================== */
-    @Operation(description = "Cria um novo usuário.")
-    @ApiResponses(value ={
-            @ApiResponse(responseCode = "201", description = "Cadastra um novo usuário no banco de dados."),
-            @ApiResponse(responseCode = "409", description = "Caso o e-mail já exista, é retornando um 409 - CONFLIT.")}
-    )
-    @PostMapping("/createUser")
-    public ResponseEntity<Object> createUser(@Valid @RequestBody UserDTOsave userEntity){
-        UserEntity obj = userService.create(userEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado!");
-    }
 
     /* ANIMAL ====================================================================================== */
     @Operation(description = "Cria um animal se o usuário tiver autenticado.")
@@ -75,4 +61,9 @@ public class ControllerSpring {
         return ResponseEntity.ok(animalService.listAllAnimal());
     }
 
+    // List difference of animals - It doesnt need auth user.
+    @PostMapping("typeOfAnimal")
+    public ResponseEntity<List<ListAnimalDTO>>  typeOfAnimal(@RequestBody TypeAnimalDTO typeAnimalDTO){
+        return ResponseEntity.ok(animalService.listAllTypeofAnimals(typeAnimalDTO));
+    }
 }

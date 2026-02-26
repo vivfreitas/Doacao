@@ -4,6 +4,8 @@ import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
 import org.com.programming.animal.entity.DTOs.UserDTO;
+import org.com.programming.animal.entity.DTOs.TypeAnimalDTO;
+import org.com.programming.animal.entity.ENUMS.AnimalEnum;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.AnimalRepository;
 import org.slf4j.Logger;
@@ -71,7 +73,25 @@ public class AnimalService {
         return newAnimals;
     }
 
-    // Criar lista para pegar apenas gato.
-    // Criar lista para pegar apenas cachorro.
+    // Criar lista para pegar apenas Gatos OU Cachorros.
+    public List<ListAnimalDTO> listAllTypeofAnimals(TypeAnimalDTO typeAnimalDTO){
+        List<ListAnimalDTO> listAllAnimals = new ArrayList<>();
 
+        List<AnimalEntity> obj = animalRepository.findByTypeAnimal(typeAnimalDTO.typeAnimal());
+        for (AnimalEntity objList : obj){
+            System.out.println(objList.getNameAnimal());
+            listAllAnimals.add(new ListAnimalDTO(
+                    objList.getNameAnimal(),
+                    objList.getTypeAnimal(),
+                    objList.getBreedAnimal(),
+                    objList.getYearAnimal(),
+                    objList.getLocatedAnimal(),
+                    objList.getContactAnimal(),
+                    objList.getDetailsAnimal(),
+                    objList.getImgUrl(),
+                    objList.getUserId().getNameUser(),
+                    objList.getUserId().getIdUser()));
+        }
+        return listAllAnimals;
+    }
 }
