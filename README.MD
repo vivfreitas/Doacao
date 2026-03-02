@@ -2,7 +2,7 @@
 
 Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interessadas em adotar animais e permitir a realização de doações.
 
-Como estudante de Sistemas de Informação, eu tenho como objetivo fazer não apenas uma API simples, mas tentar deixa-la o mais estrutural possível e de forma profissional. 
+Como estudante de back-end Java, eu tenho como objetivo fazer não apenas uma API simples, mas tentar deixa-la o mais estrutural possível e de forma profissional. 
 Muitas funcionalidades vistas aqui foram colocadas e estudadas aos poucos para que eu consiga sair da minha zona de conforto que era o CRUD.
 
 ### Tecnologias utilizadas (Back-end):
