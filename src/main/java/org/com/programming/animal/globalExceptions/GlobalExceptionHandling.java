@@ -50,7 +50,7 @@ public class GlobalExceptionHandling extends ResponseEntityExceptionHandler {
             org.springframework.http.HttpStatusCode status,
             org.springframework.web.context.request.WebRequest request) {
 
-        logger.warn("Enum inválido ou vazio enviado na requisição.");
+        logger.warn("ENUM inválido ou vazio enviado na requisição. É necessário que passe os valores específicos do ENUM.");
 
         ErrorResponse error = new ErrorResponse(
                 400,

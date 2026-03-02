@@ -6,6 +6,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.com.programming.animal.service.animal.AnimalService;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,11 +19,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.logging.Logger;
 
 @Component
 public class AuthToken extends OncePerRequestFilter {
     private final TokenService tokenService;
     private final UserDetailsService userDetailsService;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AuthToken.class);
 
 
     public AuthToken(TokenService tokenService, UserDetailsService userDetailsService) {
@@ -60,11 +64,12 @@ public class AuthToken extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }catch (ExpiredJwtException e){
             /* Mostrar para o usuário que o seu token foi expirado. Aqui escrevemos o HTTP a mão e jogar como JSON. */
+            logger.warn("Token expirado em: {}", e.getClaims().getExpiration() );
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
             response.setContentType("application/json");
             response.getWriter().write(
             """
-            {"code":401,"message":"Token expirado e/ou usuário não autenticado","timestamp":"%s"}""".formatted(Instant.now()));
+            {"code":401,"message":"Token expirado. Logue e tente novamente","timestamp":"%s"}""".formatted(Instant.now()));
         }
     }
 }

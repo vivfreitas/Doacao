@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +28,12 @@ public class AnimalService {
     // Criando Animal
     public AnimalDTO create(AnimalEntity objAnimal){
         Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity authTrue = (UserEntity) authUser.getPrincipal();
+        UserEntity authTrue = (UserEntity) authUser.getPrincipal(); // Não precisa de um try-catch pois a Exception ocorre na classe AuthToken caso o usuário não esteja autênticado.
         objAnimal.setUserId(authTrue);
         AnimalEntity animalSaved = animalRepository.save(objAnimal);
         UserDTO userDTO = new UserDTO(authTrue.getIdUser(), authTrue.getNameUser());
 
+        logger.info("Animal criado pelo usuário: {}. Horário: {}", authTrue.getIdUser(), Instant.now());
         return new AnimalDTO(
                 animalSaved.getIdAnimal(),
                 animalSaved.getNameAnimal(),
@@ -65,7 +67,7 @@ public class AnimalService {
                     animal.getUserId().getNameUser(),
                     animal.getUserId().getIdUser()));
         }
-        logger.info("Get all animals successfully");
+        logger.info("Foi retornado todos os animais com sucesso.");
         return newAnimals;
     }
 
@@ -76,7 +78,6 @@ public class AnimalService {
 
         List<AnimalEntity> obj = animalRepository.findByTypeAnimal(typeAnimalDTO.typeAnimal());
         for (AnimalEntity objList : obj){
-            System.out.println(objList.getNameAnimal());
             listAllAnimals.add(new ListAnimalDTO(
                     objList.getNameAnimal(),
                     objList.getTypeAnimal(),
@@ -89,7 +90,7 @@ public class AnimalService {
                     objList.getUserId().getNameUser(),
                     objList.getUserId().getIdUser()));
         }
-        logger.info("Foi retornado uma lista de animaiis do tipo {}", typeAnimalDTO.typeAnimal());
+        logger.info("Foi retornado uma lista de animais do tipo {}", typeAnimalDTO.typeAnimal());
         return listAllAnimals;
     }
 }

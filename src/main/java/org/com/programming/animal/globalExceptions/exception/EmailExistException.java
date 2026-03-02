@@ -1,4 +1,4 @@
-package org.com.programming.animal.service.exception;
+package org.com.programming.animal.globalExceptions.exception;
 
 import org.com.programming.animal.globalExceptions.ExceptionCustomized;
 import org.springframework.http.HttpStatus;

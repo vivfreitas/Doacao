@@ -2,6 +2,33 @@
 
 Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interessadas em adotar animais e permitir a realização de doações.
 
+Como estudante de Sistemas de Informação, eu tenho como objetivo fazer não apenas uma API simples, mas tentar deixa-la o mais estrutural possível e de forma profissional. 
+Muitas funcionalidades vistas aqui foram colocadas e estudadas aos poucos para que eu consiga sair da minha zona de conforto que era o CRUD.
+
+### Tecnologias utilizadas (Back-end):
+1. [x] Java 21.
+2. [x] Springboot 3.
+3. [x] SpringSecurity.
+4. [x] MySQL.
+5. [x] JavaScript.
+6. [x] Docker.
+7. [x] ENUM.
+8. [x] DTOs.
+9. [x] Logs.
+10. [x] Testes.
+11. [x] GlobalExceptions.
+12. [X] Bean Validations.
+13. [X] Cloudinary (Plataforma na Nuvém para hospedar imagens).
+14. [x] Swagger.
+15. [x] JPQL no JpaRepository.
+16. [x] Relacionamento de entidades.
+
+### Tecnologias utilizadas (Front-end):
+1. [x] JavaScript.
+2. [x] Fetch API.
+3. [x] CSS.
+4. [x] HTML.
+
 ### 📌 Funcionalidades
 
 * Cadastro e autenticação de usuários
@@ -10,24 +37,12 @@ Amor de Pata é um projeto full stack cujo objetivo é conectar pessoas interess
 * Cadastro de animais para adoção
 * Realização de doações
 
-**Interface web simples e responsiva**
-### Tecnologias útilizadas:
-1. [x] Java 21.
-2. [x] Springboot.
-3. [x] SpringSecurity.
-4. [x] MySQL.
-5. [x] HTML.
-6. [x] CSS.
-7. [x] JavaScript.
-8. [x] Docker.
-
 **O projeto segue uma arquitetura cliente-servidor:**
 1. [x] **Front-end:** Interface para o usuário
 2. [x] **Back-end:** API REST responsável pelas regras de negócio, autenticação e persistência de dados
 ****
 
-## UML do projeto
-[AmorDePata.pdf](../../PDFs/AmorDePata.pdf)
+
 ### Page cadastro e método POST
 
 **Front-end**:
