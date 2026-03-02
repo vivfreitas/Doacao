@@ -1,11 +1,7 @@
 package org.com.programming.animal.service.animal;
 
 import org.com.programming.animal.entity.AnimalEntity;
-import org.com.programming.animal.entity.DTOs.AnimalDTO;
-import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
-import org.com.programming.animal.entity.DTOs.UserDTO;
-import org.com.programming.animal.entity.DTOs.TypeAnimalDTO;
-import org.com.programming.animal.entity.ENUMS.AnimalEnum;
+import org.com.programming.animal.entity.DTOs.*;
 import org.com.programming.animal.entity.UserEntity;
 import org.com.programming.animal.jpa.AnimalRepository;
 import org.slf4j.Logger;
@@ -50,14 +46,14 @@ public class AnimalService {
         }
 
 
-    // Logs
-    // List all animal - Do not necessary auth.
-    public List<ListAnimalDTO> listAllAnimal(){
-        List<ListAnimalDTO> newAnimals = new ArrayList<>();
+    // VAMOS LISTAR TODOS OS ANIMAIS. SERÁ IMPORTANTE PARA O FRONT-END.
+    public List<ListAnimalsDTOid> listAllAnimal(){
+        List<ListAnimalsDTOid> newAnimals = new ArrayList<>();
         List<AnimalEntity> allAnimals = animalRepository.findAll();
 
         for (AnimalEntity animal : allAnimals){
-            newAnimals.add(new ListAnimalDTO(
+            newAnimals.add(new ListAnimalsDTOid(
+                    animal.getIdAnimal(),
                     animal.getNameAnimal(),
                     animal.getTypeAnimal(),
                     animal.getBreedAnimal(),
@@ -73,8 +69,9 @@ public class AnimalService {
         return newAnimals;
     }
 
-    // Criar lista para pegar apenas Gatos OU Cachorros.
+    // Criar lista para pegar apenas Gatos OU Cachorros - FILTRO USADO PARA O FRONT-END.
     public List<ListAnimalDTO> listAllTypeofAnimals(TypeAnimalDTO typeAnimalDTO){
+
         List<ListAnimalDTO> listAllAnimals = new ArrayList<>();
 
         List<AnimalEntity> obj = animalRepository.findByTypeAnimal(typeAnimalDTO.typeAnimal());
@@ -92,6 +89,7 @@ public class AnimalService {
                     objList.getUserId().getNameUser(),
                     objList.getUserId().getIdUser()));
         }
+        logger.info("Foi retornado uma lista de animaiis do tipo {}", typeAnimalDTO.typeAnimal());
         return listAllAnimals;
     }
 }

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.com.programming.animal.entity.AnimalEntity;
 import org.com.programming.animal.entity.DTOs.AnimalDTO;
 import org.com.programming.animal.entity.DTOs.ListAnimalDTO;
+import org.com.programming.animal.entity.DTOs.ListAnimalsDTOid;
 import org.com.programming.animal.entity.DTOs.TypeAnimalDTO;
 import org.com.programming.animal.service.animal.AnimalService;
 import org.com.programming.animal.service.clouding.CloudinaryService;
@@ -32,7 +33,6 @@ public class ControllerAnimal {
         this.cloudinaryService = cloudinaryService;
     }
 
-
     /* ANIMAL ====================================================================================== */
     @Operation(description = "Cria um animal se o usuário tiver autenticado.")
     @ApiResponses(value ={
@@ -55,15 +55,18 @@ public class ControllerAnimal {
         return ResponseEntity.status(HttpStatus.CREATED).body(objAnimal);
     }
 
-    // List all animal - Do not necessary auth.
+    @Operation(description = "Vai listar todos os animais com o ID.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Listagem de animais com ID e detalhes do Usuário.")})
     @GetMapping("listAnimals")
-    public ResponseEntity<List<ListAnimalDTO>> listResponseEntityAnimal(){
+    public ResponseEntity<List<ListAnimalsDTOid>> listResponseEntityAnimal(){
         return ResponseEntity.ok(animalService.listAllAnimal());
     }
 
-    // List difference of animals - It doesnt need auth user.
+    @Operation(description = "Vai retornar uma lista de animais se é cachorro ou gato.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Listagem de animais com ID e detalhes do Usuário.")})
     @PostMapping("typeOfAnimal")
-    public ResponseEntity<List<ListAnimalDTO>>  typeOfAnimal(@RequestBody TypeAnimalDTO typeAnimalDTO){
+    public ResponseEntity<List<ListAnimalDTO>>  typeOfAnimal( @Valid @RequestBody TypeAnimalDTO typeAnimalDTO
+    ){
         return ResponseEntity.ok(animalService.listAllTypeofAnimals(typeAnimalDTO));
     }
 }
