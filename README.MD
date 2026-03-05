@@ -15,7 +15,7 @@ Muitas funcionalidades vistas aqui foram colocadas e estudadas aos poucos para q
 7. [x] ENUM.
 8. [x] DTOs.
 9. [x] Logs.
-10. [x] Testes.
+10. [x] Testes Unitários (JUnint5 e Mock).
 11. [x] GlobalExceptions.
 12. [X] Bean Validations.
 13. [X] Cloudinary (Plataforma na Nuvém para hospedar imagens).
