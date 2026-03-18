@@ -14,9 +14,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class AnimalServiceTest {
@@ -31,6 +37,7 @@ public class AnimalServiceTest {
         animalService = new AnimalService(animalRepository);
     }
 
+    // Criando uma lista de animais e retornando.
     private static @NonNull List<AnimalEntity> getAnimalEntities() {
         Long animalId = 1L;
         Long userId = 1L;
@@ -44,6 +51,20 @@ public class AnimalServiceTest {
                 "Um gato carinhoso e calmo", userEntity);
         animalList.add(animalEntity);
         return animalList;
+    }
+
+    // Criando um animal e retornando o memo.
+    private static @NonNull AnimalEntity getAnimal(){
+        Long animalId = 1L;
+        Long userId = 1L;
+        AnimalEnum animalEnum = AnimalEnum.GATO;
+        List<AnimalEntity> animalList = new ArrayList<>();
+
+        UserEntity userEntity = new UserEntity(userId, "Vivian", "vivian00gmail.com", "123", animalList);
+
+        return new AnimalEntity(animalId, "Shokito", animalEnum, "Viralata",
+                3, "Rio de Janeiro - RJ", "2199999999", "foto_img",
+                "Um gato carinhoso e calmo", userEntity);
     }
 
     @Test
@@ -76,7 +97,31 @@ public class AnimalServiceTest {
         Assertions.assertEquals(1, listResult.size()); // O tamanho da minha lista é 1. Logo: [ Animal("Shokito") ]
         Assertions.assertEquals("Shokito", listResult.get(0).nameAnimal());
         Assertions.assertEquals(animalEnum, listResult.get(0).typeAnimal()); // Por ser ENUM, não se deve colocar uma String.
-
     }
 
+    @Test
+    void deveCriarUmAnimal(){
+        // Vamos criar o nosso usuário e animal.
+        AnimalEntity animalEntity = getAnimal();
+        UserEntity userEntity = animalEntity.getUserId();
+
+        // Simular o Security Context
+        Authentication auth = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(auth);
+        Mockito.when(auth.getPrincipal()).thenReturn(userEntity);
+        SecurityContextHolder.setContext(securityContext);
+
+        Mockito.when(animalRepository.save(any())).thenReturn(animalEntity);
+
+        System.out.println(animalEntity.getNameAnimal());
+        animalService.create(animalEntity);
+
+        // Se tivermos muitos AssertionsEquals, é bom que usamos dessa forma para que nos dê o problema de uma vez só
+        Assertions.assertAll("Verificando atributos do nosso animal",
+                () -> Assertions.assertEquals("Shokito", animalEntity.getNameAnimal()),
+                () -> Assertions.assertEquals(AnimalEnum.GATO, animalEntity.getTypeAnimal()),
+                () -> Assertions.assertNotNull(animalEntity.getIdAnimal())
+        );
+    }
 }
