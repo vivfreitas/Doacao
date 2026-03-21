@@ -7,7 +7,6 @@ import org.com.programming.animal.infra.jwt.TokenService;
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.globalExceptions.exception.EmailExistException;
 import org.com.programming.animal.globalExceptions.exception.EmailNotFoundException;
-import org.com.programming.animal.service.user.config.UserDetailsConfig;
 import org.com.programming.animal.service.user.userDetails.UserDetailsServiceAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -25,15 +25,17 @@ public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
-    private final UserDetailsConfig userDetailsConfig;
+    private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsServiceAuth userDetailsServiceAuth;
+
     private final TokenService tokenService;
 
-    public UserService(UserRepository userRepository, UserDetailsConfig userDetailsConfig, AuthenticationManager authenticationManager, UserDetailsServiceAuth userDetailsServiceAuth, TokenService tokenService){
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserDetailsServiceAuth userDetailsServiceAuth, TokenService tokenService){
         this.userRepository = userRepository;
-        this.userDetailsConfig = userDetailsConfig;
+        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.userDetailsServiceAuth = userDetailsServiceAuth;
         this.tokenService = tokenService;
@@ -49,7 +51,7 @@ public class UserService {
         UserEntity user = new UserEntity();
         user.setNameUser(objUser.userName());
         user.setEmailUser(objUser.userEmail());
-        user.setPasswordUser(userDetailsConfig.passwordEncoder().encode(objUser.userPassword()));
+        user.setPasswordUser(passwordEncoder.encode(objUser.userPassword()));
         UserEntity usuario = userRepository.save(user);
         logger.debug("Usuário criado com sucesso!");
         logger.info("Usuário foi criado com sucesso: {}", usuario.getIdUser());
@@ -75,4 +77,6 @@ public class UserService {
             throw new EmailNotFoundException(authResponse.email());
         }
     }
+
+
 }

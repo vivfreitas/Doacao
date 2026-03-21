@@ -22,6 +22,7 @@ public class UserDetailsConfig {
         this.userRepository = userRepository;
     }
 
+
     @Bean
     public UserDetailsServiceAuth userDetailsServiceAuth(){
         return new UserDetailsServiceAuth(userRepository); /* Coloca o JPA dentro da nossa classe para que ele busque o usuário. */
