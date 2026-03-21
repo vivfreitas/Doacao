@@ -3,6 +3,7 @@ package org.com.programming.animal.service.user.config;
 
 import org.com.programming.animal.jpa.UserRepository;
 import org.com.programming.animal.service.user.userDetails.UserDetailsServiceAuth;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,10 +22,13 @@ public class UserDetailsConfig {
         this.userRepository = userRepository;
     }
 
+
+    @Bean
     public UserDetailsServiceAuth userDetailsServiceAuth(){
         return new UserDetailsServiceAuth(userRepository); /* Coloca o JPA dentro da nossa classe para que ele busque o usuário. */
     }
 
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
@@ -40,7 +44,7 @@ public class UserDetailsConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
-        return configuration.getAuthenticationManager(); /* Vai autêncicar o nosso usuário. */
+        return configuration.getAuthenticationManager(); /* Vai autenticar o nosso usuário. */
     }
 
 }

@@ -1,6 +1,7 @@
 package org.com.programming.animal.infra;
 
 import org.com.programming.animal.infra.jwt.AuthToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,6 +23,7 @@ public class SpringSecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final AuthToken authToken;
 
+    @Autowired
     public SpringSecurityConfig(AuthenticationProvider authenticationProvider, AuthToken authToken){
         /* Por enquanto não iremos implementa-lo. */
         this.authenticationProvider = authenticationProvider;
@@ -34,9 +36,16 @@ public class SpringSecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationClass()))
                 .csrf(AbstractHttpConfigurer:: disable)
                 .authorizeHttpRequests(auth ->{
-                    auth.requestMatchers("/api/createUser").permitAll();
-                    auth.requestMatchers("/api/AllAnimal").permitAll();
-                    auth.requestMatchers("/api/createAnimal").permitAll();
+                    // Rotas do Swagger e OpenAPI
+                    auth.requestMatchers("/swagger-ui/**").permitAll();
+                    auth.requestMatchers("/v3/api-docs/**").permitAll();
+                    auth.requestMatchers("/swagger-resources/**").permitAll();
+                    auth.requestMatchers("/webjars/**").permitAll();
+
+                    auth.requestMatchers("/api/user/createUser").permitAll();
+                    auth.requestMatchers("/api/animal/listAnimals").permitAll();
+                    auth.requestMatchers("/api/animal/typeOfAnimal").permitAll();
+                    auth.requestMatchers("/api/animal/createAnimal").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
@@ -54,6 +63,7 @@ public class SpringSecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         corsConfiguration.addAllowedOrigin("http://127.0.0.1:5500");
+        corsConfiguration.addAllowedOrigin("http://localhost:5500"); // Adicione esta linha
         corsConfiguration.setAllowCredentials(false); // Permite o uso de tokens
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedHeader("*");

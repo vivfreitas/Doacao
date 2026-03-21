@@ -1,10 +1,14 @@
 package org.com.programming.animal.infra.jwt;
 
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.com.programming.animal.service.animal.AnimalService;
+import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +18,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.util.logging.Logger;
 
 @Component
 public class AuthToken extends OncePerRequestFilter {
     private final TokenService tokenService;
     private final UserDetailsService userDetailsService;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AuthToken.class);
 
 
     public AuthToken(TokenService tokenService, UserDetailsService userDetailsService) {
@@ -28,31 +35,41 @@ public class AuthToken extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        final String jwt = authHeader.substring(7);
-        final String useremail = tokenService.extractEmailUser(jwt);
-
-        /* Verifica se o usuário é diferente de null e se ele ainda não foi autenticado. */
-        if (useremail != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(useremail);
-            /* Vai criar a autenticação para o usuário */
-            if (tokenService.ifTokenValid(jwt, userDetails)){
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities()
-                );
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
+        try{
+            final String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")){
+                filterChain.doFilter(request, response);
+                return;
             }
+
+            final String jwt = authHeader.substring(7);
+            final String useremail = tokenService.extractEmailUser(jwt);
+
+            /* Verifica se o usuário é diferente de null e se ele ainda não foi autenticado. */
+            if (useremail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(useremail);
+                /* Vai criar a autenticação para o usuário */
+                if (tokenService.ifTokenValid(jwt, userDetails)){
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities()
+                    );
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
+            }
+            filterChain.doFilter(request, response);
+        }catch (ExpiredJwtException e){
+            /* Mostrar para o usuário que o seu token foi expirado. Aqui escrevemos o HTTP a mão e jogar como JSON. */
+            logger.warn("Token expirado em: {}", e.getClaims().getExpiration() );
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+            response.setContentType("application/json");
+            response.getWriter().write(
+            """
+            {"code":401,"message":"Token expirado. Logue e tente novamente","timestamp":"%s"}""".formatted(Instant.now()));
         }
-        filterChain.doFilter(request, response);
     }
 }

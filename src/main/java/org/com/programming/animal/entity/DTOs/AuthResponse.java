@@ -1,4 +1,6 @@
 package org.com.programming.animal.entity.DTOs;
 
-public record AuthResponse(String token) {
+import java.time.Instant;
+
+public record AuthResponse(String token, Instant timestamp) {
 }
