@@ -4,14 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Amor de Pata</title>
 </head>
 <body>
-    <header>
-        <div id="div_img_logo">
-            <img src="/imgs/Logo.png" alt="">
+<header>
+    <div id="div_img_logo">
+        <img src="/imgs/Logo.png" alt="">
+    </div>
+
+    <div class="user-container">
+        <!-- MENU DA TELA -->
+        <div id="div_bnt_user" onclick="toggleMenu()">
+            <p>Olá, <span id="nome_usuario">usuário!</span></p>
+            <i class="bi bi-person"></i>
         </div>
-        <div id="div_bnt_user"></div>
-    </header>
+
+        <!-- MENU DA TELA -->
+        <div id="user_menu" class="hidden">
+            <a href="#"><i class="bi bi-person-gear"></i> Perfil</a>
+            <a href="#"><i class="bi bi-box-arrow-right"></i> Sair</a>
+        </div>
+    </div>
+</header>
+<main> 
+    <div id="text_principal">
+            <h3> UM <span>NOVO LAR</span> PARA O SEU <span>AMIGUINHO</span></h3>
+            <p> Coloque o seu bichinho para adoção e dê um novo lar para ele. Há milhares de pessoas aguardando!</p>
+    </div>
+    <div id="img_principal">
+        <img src="/imgs/girls_animals.png" alt="">
+    </div>
+
+    <div id="cards">
+        <div id="card_adotar" class="card">
+            <p class="card_text"> ADOTAR </p>
+            <p class="card_descricao">
+                Adotar não muda só a vida de um animal. Muda a sua também com muito amor e gratidão.
+            </p>
+        </div>
+
+        <div id="card_doar" class="card">
+            <p class="card_text"> ADOTAR </p>
+            <p class="card_descricao">
+                Adotar não muda só a vida de um animal. Muda a sua também com muito amor e gratidão.
+            </p>
+        </div>
+    </div>
+</main>
 </body>
+<script src="script.js"></script>
 </html>
