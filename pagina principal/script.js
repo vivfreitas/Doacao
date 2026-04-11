@@ -13,6 +13,16 @@ window.onclick = function(event) {
     }
 }
 
+// Animaçao do card.
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+
+    document.querySelectorAll('.card').forEach(c => {
+      c.classList.remove('ativo');
+    });
+    card.classList.add('ativo');
+  });
+});
 
 // <!-- CAROUSEL FROM SLIDEJS.COM -->
 var splide = new Splide( '.splide' );

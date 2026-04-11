@@ -133,10 +133,17 @@ header{
     transition: box-shadow 0.6s ease-in-out, transform 0.2s ease;
 
 }
-.card:hover{
+ .card.ativo{
     box-shadow: 10px 10px 8px #ffd8a2;
-    transform: scale(0.98);
+    transform: scale(0.95); 
 }
+
+/* QUANDO FAZER A RESPONSIVIDADE, REMOVER O DE CIMA E COLOCAR ESSE DAQUI.
+ .card:hover {
+  box-shadow: 10px 10px 8px #ffd8a2;
+  transform: scale(1.02);
+} */
+
 
 .card p{
     text-align: center;
