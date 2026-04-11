@@ -6,14 +6,20 @@
     margin: 0;
     font-family: 'Roboto';
 }
+body{
+    background-color: #f6f6f6;
+}
 
 /* HEADER DO USUÁRIO ===================================== */
 
 header{
     display: flex;
     justify-content: space-around;
-    padding-top: 20px;
     margin-bottom: 50px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 15px;
 }
 #div_img_logo img{
     width: 120px;
@@ -69,6 +75,9 @@ header{
 #user_menu a:hover {
     background-color: #f1f1f1;
 }
+#user_menu img {
+    width: 30px;
+}
 
 /* Classe para esconder o menu */
 .hidden {
@@ -112,10 +121,82 @@ header{
     justify-items: center;
 }
 .card{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     padding: 10px;
-    width: 50%;
-    border: 1px #FFA629 solid;
+    width: 60%;
+    height: 120px;
+    border: 1px #cdcdcd solid;
+    border-radius: 20px;
+    background-color: white;
+    transition: box-shadow 0.6s ease-in-out, transform 0.2s ease;
+
+}
+.card:hover{
+    box-shadow: 10px 10px 8px #ffd8a2;
+    transform: scale(0.98);
+}
+
+.card p{
+    text-align: center;
+    color: #626262;
 }
 .card_text{
-    color: #626262;
+    font-weight: bold;
+}
+.card_descricao{
+    font-size: 12px;
+    font-weight: 500;
+}
+.card img{
+    width: 30px;
+}
+
+/* // <!-- CAROUSEL FROM SLIDEJS.COM --> */
+#carousel{
+    margin-top: 50px;
+}
+.splide__slide img{
+  width: 80%;
+  height: 180px;       
+  object-fit: cover;  
+  display: block;
+  margin: 0 auto; 
+  border-radius: 20px;
+  border: 1px #cdcdcd solid;
+  box-shadow: 5px 10px 12px #cccccc;
+
+}
+
+/* FOOTER */
+footer{
+    padding: 10px;
+    margin-top: 50px;
+    background-color: #FFA629;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#icons_redes{
+    background-color: white;
+    width: 35%;
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 8px;
+}
+#icons_redes i{
+    font-size: 20px;
+    color: #999999;
+}
+#icons_redes p{
+    color: #999999;
+}
+#creditos p {
+    text-align: center;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
 }

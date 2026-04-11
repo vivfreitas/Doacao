@@ -1,4 +1,3 @@
-
 // FAZ O MENU DO USUÁRIO 
 function toggleMenu() {
     const menu = document.getElementById("user_menu");
@@ -13,3 +12,8 @@ window.onclick = function(event) {
         }
     }
 }
+
+
+// <!-- CAROUSEL FROM SLIDEJS.COM -->
+var splide = new Splide( '.splide' );
+splide.mount();
